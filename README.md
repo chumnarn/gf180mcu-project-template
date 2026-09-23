@@ -78,8 +78,8 @@ To implement your own design, simply edit `chip_core.sv`. The `chip_core` module
 
 ## Choosing a Different Slot Size
 
-The template supports the following slot sizes: `1x1`, `0p5x1`, `1x0p5`, `0p5x0p5`.
-By default, the design is implemented using the `1x1` slot definition.
+The template supports the following slot sizes: `64pad`, `1x1`, `0p5x1`, `1x0p5`, `0p5x0p5`.
+By default, the design is implemented using the `64pad` slot definition.
 
 To select a different slot size, simply set the `SLOT` environment variable.
 This can be done when invoking a make target:
@@ -116,6 +116,31 @@ The default values can be changed in the Makefile.
 
 > [!NOTE]
 > Not all of the community-created IPs have been tested yet, so support for them is experimental!
+
+## 64-Pad Frame
+
+The default `64pad` configuration creates a square pad frame with exactly 16 pads on each side. Every side contains one core `VDD` pad, one core `VSS` pad, one I/O `DVDD` pad, one I/O `DVSS` pad, and 12 signal pads.
+
+| Side | Signal allocation | Supply allocation | Total |
+|------|-------------------|-------------------|-------|
+| South | clock, reset, 10 bidirectional | VDD, VSS, DVDD, DVSS | 16 |
+| East | 12 bidirectional | VDD, VSS, DVDD, DVSS | 16 |
+| North | 10 bidirectional, 2 analog | VDD, VSS, DVDD, DVSS | 16 |
+| West | 10 bidirectional, 2 input | VDD, VSS, DVDD, DVSS | 16 |
+
+Build only the 64-pad ring:
+
+```sh
+SLOT=64pad make librelane-padring
+```
+
+Run the complete RTL-to-GDSII flow:
+
+```sh
+SLOT=64pad make librelane
+```
+
+The pad order, die size, and core area are defined in `librelane/slots/slot_64pad.yaml`. Keep the north and west lists in reverse physical order, as required by clockwise pad-ring placement.
 
 ## Building a Standalone Padring for Analog Design
 

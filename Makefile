@@ -43,8 +43,8 @@ else
     MACROS = 3v3
 endif
 
-AVAILABLE_SLOTS = 1x1 0p5x1 1x0p5 0p5x0p5
-DEFAULT_SLOT = 1x1
+AVAILABLE_SLOTS = 64pad 1x1 0p5x1 1x0p5 0p5x0p5
+DEFAULT_SLOT = 64pad
 
 # Slot can be any of AVAILABLE_SLOTS
 SLOT ?= $(DEFAULT_SLOT)

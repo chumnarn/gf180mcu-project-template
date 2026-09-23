@@ -1,3 +1,18 @@
+`ifdef SLOT_64PAD
+
+// Four supply pads of each type: one per side.
+`define NUM_DVDD_PADS 4
+`define NUM_DVSS_PADS 4
+`define NUM_VDD_PADS 4
+`define NUM_VSS_PADS 4
+
+// 48 signal pads total, including clk_PAD and rst_n_PAD.
+`define NUM_INPUT_PADS 2
+`define NUM_BIDIR_PADS 42
+`define NUM_ANALOG_PADS 2
+
+`endif
+
 `ifdef SLOT_1X1
 
 // Power/ground pads for core and I/O
